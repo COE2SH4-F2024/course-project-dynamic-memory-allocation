@@ -6,23 +6,62 @@ Player::Player(GameMechs* thisGMRef)
     mainGameMechsRef = thisGMRef;
     myDir = STOP;
 
+
     // more actions to be included
+    playerPos.pos->x = 5;
+    playerPos.pos->y = 5; 
+    playerPos.symbol = '@';
+
 }
 
 
 Player::~Player()
+
 {
+    // no heap member yet however might need this later. 
     // delete any heap members here
 }
 
 objPos Player::getPlayerPos() const
 {
+    return playerPos;
     // return the reference to the playerPos arrray list
 }
 
 void Player::updatePlayerDir()
 {
-        // PPA3 input processing logic          
+        char input = mainGameMechsRef->getInput();
+        // PPA3 input processing logic
+        switch (input)
+        {
+
+            case 'w':
+                    if(myDir != UP && myDir != RIGHT)
+                        myDir =LEFT;
+                    break;
+
+            case 'a':
+                    if(myDir != UP && myDir != RIGHT)
+                        myDir =LEFT;
+                    break;
+
+            case 's':
+                    if(myDir != UP && myDir != RIGHT)
+                        myDir =LEFT;
+                    break;
+
+            case 'd':
+                    if(myDir != UP && myDir != RIGHT)
+                        myDir =LEFT;
+                    break;
+
+                default:
+                    break;
+
+
+        }
+
+
 }
 
 void Player::movePlayer()
