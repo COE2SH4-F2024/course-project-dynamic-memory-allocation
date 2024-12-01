@@ -11,6 +11,7 @@ using namespace std;
 bool exitFlag;
 
 Player *myPlayer;
+GameMechs *GMC;
 
 void Initialize(void);
 void GetInput(void);
@@ -21,9 +22,6 @@ void CleanUp(void);
 
 
     objPos lund1(2, 2, 'a');
-    objPos lund2(4, 6, 'b');
-    objPos lund3(6, 6, 'c');
-
 
 
 int main(void)
@@ -31,7 +29,7 @@ int main(void)
 
     Initialize();
 
-    while(exitFlag == false)  
+    while(GMC->getExitFlagStatus() == false)  
     {
         GetInput();
         RunLogic();
@@ -49,9 +47,9 @@ void Initialize(void)
     MacUILib_init();
     MacUILib_clearScreen();
 
-    myPlayer = new Player(nullptr);
+    GMC = new GameMechs();
+    myPlayer = new Player(GMC);
 
-    exitFlag = false;
 }
 
 void GetInput(void)
@@ -81,31 +79,21 @@ void DrawScreen(void)
         int y,x;
 
     
-    for(y=0; y<10; y++)
+    for(y=0; y<15; y++)
     {
         
-        for(x=0; x<20; x++)
+        for(x=0; x<30; x++)
         {
-            if ((y==0 || x==0)||(y==9 || x==19))
+            if ((y==0 || x==0)||(y==14 || x==29))
             {
                 MacUILib_printf("#");
             }
 
-            else if (x==(lund1.pos->x) && (y==lund1.pos->y))
+            else if (x==(playerPos.pos->x) && (y == playerPos.pos->y))
             {
-                MacUILib_printf("%c", lund1.symbol);
+                MacUILib_printf("%c", playerPos.symbol);
             }
-
-            else if (x==(lund2.pos->x) && (y==lund2.pos->y))
-            {
-                MacUILib_printf("%c", lund2.symbol);
-            }
-
-            else if (x==(lund3.pos->x) && (y==lund3.pos->y))
-            {
-                MacUILib_printf("%c", lund3.symbol);
-            }
-
+            
             else{
                 MacUILib_printf(" ");
             }
@@ -126,6 +114,7 @@ void CleanUp(void)
     MacUILib_clearScreen();    
 
     delete myPlayer;
+    delete GMC;
 
     MacUILib_uninit();
 }
