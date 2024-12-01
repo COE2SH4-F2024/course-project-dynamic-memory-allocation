@@ -10,6 +10,16 @@ objPosArrayList::objPosArrayList()
     aList = new objPos[ARRAY_MAX_CAP];
 }
 
+
+objPosArrayList::objPosArrayList(int size)
+{
+    listSize = size;
+    arrayCapacity = ARRAY_MAX_CAP;
+    aList = new objPos[ARRAY_MAX_CAP];
+
+}
+
+
 objPosArrayList::~objPosArrayList()
 {
     delete[] aList;
@@ -28,7 +38,7 @@ void objPosArrayList::insertHead(objPos thisPos)
     for (int i = listSize; i > 0; i--){
         aList[i] = aList[i-1];
     }
-    aList[0].setObjPos(thisPos);
+    aList[0] =thisPos;
     listSize++;
 }
 
@@ -37,7 +47,7 @@ void objPosArrayList::insertTail(objPos thisPos)
     if (listSize == arrayCapacity){
         return;
     }
-    aList[listSize].setObjPos(thisPos);
+    aList[listSize] = thisPos;
     listSize++;
 }
 
@@ -72,11 +82,10 @@ objPos objPosArrayList::getTailElement() const
 
 objPos objPosArrayList::getElement(int index) const
 {
-    if(index < 0){
-        return aList[0];
+    if(index < 0 || index >= listSize){
+
+        return objPos();
     }
-    if (index >= listSize){
-        return aList[listSize-1];
-    }
+    
     return aList[index];
 }
