@@ -54,13 +54,17 @@ void Initialize(void)
 
 void GetInput(void)
 {
-   
+
+GMC->getInput();
 
 
 }
 
 void RunLogic(void)
 {
+
+    myPlayer->movePlayer();
+    myPlayer->updatePlayerDir();
     
 }
 
