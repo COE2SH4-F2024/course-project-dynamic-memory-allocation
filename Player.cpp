@@ -32,6 +32,7 @@ void Player::updatePlayerDir()
 {
         char input = mainGameMechsRef->getInput();
         // PPA3 input processing logic
+
         switch (input)
         {
 

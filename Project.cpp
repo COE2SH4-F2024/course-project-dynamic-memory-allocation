@@ -8,8 +8,6 @@ using namespace std;
 
 #define DELAY_CONST 100000.
 
-bool exitFlag;
-
 Player *myPlayer;
 GameMechs *GMC;
 
@@ -49,6 +47,7 @@ void Initialize(void)
 
     GMC = new GameMechs();
     myPlayer = new Player(GMC);
+    GMC->generateFood(myPlayer->getPlayerPos());
 
 }
 
@@ -62,7 +61,9 @@ GMC->getInput();
 
 void RunLogic(void)
 {
-
+    if (GMC->getInput()== 27){
+        GMC->setExitTrue();
+    }
     myPlayer->movePlayer();
     myPlayer->updatePlayerDir();
     
@@ -78,17 +79,21 @@ void DrawScreen(void)
 
 
         objPos playerPos = myPlayer->getPlayerPos();
+        objPos foodPos = GMC->getFoodPos();
+        int bx = GMC->getBoardSizeX();
+        int by = GMC->getBoardSizeY();
         MacUILib_printf("Player[x,y] = [%d], [%d], %c\n", playerPos.pos->x, playerPos.pos->y, playerPos.symbol);
+
 
         int y,x;
 
     
-    for(y=0; y<15; y++)
+    for(y=0; y<by; y++)
     {
         
-        for(x=0; x<30; x++)
+        for(x=0; x<bx; x++)
         {
-            if ((y==0 || x==0)||(y==14 || x==29))
+            if ((y==0 || x==0)||(y==by-1 || x==bx-1))
             {
                 MacUILib_printf("#");
             }
@@ -96,6 +101,11 @@ void DrawScreen(void)
             else if (x==(playerPos.pos->x) && (y == playerPos.pos->y))
             {
                 MacUILib_printf("%c", playerPos.symbol);
+            }
+
+            else if (x==(foodPos.pos->x) && (y == foodPos.pos->y))
+            {
+                MacUILib_printf("%c", foodPos.symbol);
             }
             
             else{
