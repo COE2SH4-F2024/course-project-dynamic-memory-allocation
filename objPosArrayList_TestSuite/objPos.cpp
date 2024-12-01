@@ -32,12 +32,9 @@ objPos::objPos(const objPos &o){
 }
 objPos& objPos::operator=(const objPos &o){
     if (&o != this){
-		delete[] this->pos;
-		this->pos->x = o.pos->x;
-		this->pos->y = o.pos->y;
-        this->symbol = o.symbol;
-		this->pos = new Pos;
-		this->pos = o.pos;
+		pos->x = o.pos->x;
+        pos->y = o.pos->y;
+        symbol = o.symbol;
 	}
 	return *this;
 }
