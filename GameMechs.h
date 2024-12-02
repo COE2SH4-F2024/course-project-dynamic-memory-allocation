@@ -23,7 +23,7 @@ class GameMechs
         objPos food;
         int xLt;
         int yLt;
-        bool regen = true;
+        //bool regen = true;
 
     public:
         GameMechs();
@@ -51,9 +51,6 @@ class GameMechs
 
         void generateFood(objPosArrayList* playerPosList);
         objPos getFoodPos() const;
-        bool getRegen();
-        void setRegenTrue();
-        void setRegenFalse();
 
 };
 

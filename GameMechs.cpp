@@ -121,7 +121,6 @@ void GameMechs::generateFood(objPosArrayList* playerPosList){
         }
     }
     while(wrongGen);
-    setRegenFalse();
     food = objPos(rx, ry, '+');
 }
 
@@ -132,13 +131,3 @@ objPos GameMechs::getFoodPos() const{
 
 // More methods should be added here
 
-
-bool GameMechs::getRegen(){
-    return regen;
-}
-void GameMechs::setRegenTrue(){
-    regen = true;
-}
-void GameMechs::setRegenFalse(){
-    regen = false;
-}

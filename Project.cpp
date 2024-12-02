@@ -67,6 +67,10 @@ void RunLogic(void)
     }
     myPlayer->movePlayer();
     myPlayer->updatePlayerDir();
+    if (myPlayer->checkSelfCollision()){
+        GMC->setLoseFlag();
+        GMC->setExitTrue();
+    }
     
 }
 
@@ -132,6 +136,11 @@ void DrawScreen(void)
          MacUILib_printf("\n");
 
 
+        }
+
+        MacUILib_printf("Score: %d\n", GMC->getScore());
+        if (GMC->getExitFlagStatus() && GMC->getLoseFlagStatus()){
+            MacUILib_printf("you lost hajajajja");
         }
 
 

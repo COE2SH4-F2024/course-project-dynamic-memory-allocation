@@ -119,8 +119,8 @@ void Player::movePlayer()
     if (head.pos->x == mainGameMechsRef->getFoodPos().pos->x && head.pos->y == mainGameMechsRef->getFoodPos().pos->y){
         objPos tHead = objPos(mainGameMechsRef->getFoodPos().pos->x, mainGameMechsRef->getFoodPos().pos->y, '*');
         playerPosList->insertHead(tHead);
-        mainGameMechsRef->setRegenTrue();
         mainGameMechsRef->generateFood(playerPosList);
+        mainGameMechsRef->incrementScore();
 
     }
     else{
@@ -133,3 +133,12 @@ void Player::movePlayer()
 
 
 // More methods to be added
+
+bool Player::checkSelfCollision(){
+    for (int i = 1; i < playerPosList->getSize(); i++){
+        if (playerPosList->getHeadElement().pos->x == playerPosList->getElement(i).pos->x && playerPosList->getHeadElement().pos->y == playerPosList->getElement(i).pos->y){
+            return true;
+        }
+    }
+    return false;
+}
