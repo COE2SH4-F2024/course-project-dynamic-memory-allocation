@@ -19,8 +19,6 @@ void LoopDelay(void);
 void CleanUp(void);
 
 
-    objPos lund1(2, 2, 'a');
-
 
 int main(void)
 {
@@ -69,12 +67,12 @@ void RunLogic(void)
     myPlayer->updatePlayerDir();
     if (myPlayer->checkSelfCollision()){
         GMC->setLoseFlag();
-        GMC->setExitTrue();
     }
     
 }
 
 void DrawScreen(void)
+
 {
 
     MacUILib_clearScreen(); 
@@ -88,12 +86,12 @@ void DrawScreen(void)
         objPos foodPos = GMC->getFoodPos();
         int bx = GMC->getBoardSizeX();
         int by = GMC->getBoardSizeY();
-        MacUILib_printf("Player[x,y] = [%d], [%d], %c\n",head.pos->x, head.pos->y, head.symbol);
+        //MacUILib_printf("Player[x,y] = [%d], [%d], %c\n",head.pos->x, head.pos->y, head.symbol);
 
 
         int y,x;
 
-    
+    cout << GMC->getLoseFlagStatus()<< endl;
     for(y=0; y<by; y++)
     {
         
@@ -139,10 +137,13 @@ void DrawScreen(void)
         }
 
         MacUILib_printf("Score: %d\n", GMC->getScore());
-        if (GMC->getExitFlagStatus() && GMC->getLoseFlagStatus()){
-            MacUILib_printf("you lost hajajajja");
-        }
+        if (GMC->getLoseFlagStatus() == true){
+            MacUILib_printf("You lost!! Go study for your finals!!\n");
+            MacUILib_printf("press esc to exit!\n");
 
+        }
+    MacUILib_printf("Welcome to the Dynamic Memory Allocation Snake Game made for the ECE depratment where everyone is a snake :)\n");
+    MacUILib_printf("to play, simply use the WASD keys to move the snake. Do not crash into yourself as that will make you lose :(");
 
 }
 

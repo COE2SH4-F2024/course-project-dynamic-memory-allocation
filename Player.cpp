@@ -39,40 +39,45 @@ objPosArrayList* Player::getPlayerPos() const
 void Player::updatePlayerDir()
 {
         char input = mainGameMechsRef->getInput();
+        bool loseFlag = mainGameMechsRef->getLoseFlagStatus();
         // PPA3 input processing logic
+  
+        if (loseFlag == false){
 
-        switch (input)
-        {
+            switch (input)
+            {
 
-            case 'w':
-                    if(myDir != UP && myDir != DOWN)
-                        myDir =UP;
-                    break;
+                case 'w':
+                        if(myDir != UP && myDir != DOWN)
+                            myDir =UP;
+                        break;
 
-            case 'a':
-                    if(myDir != LEFT && myDir != RIGHT)
-                        myDir =LEFT;
-                    break;
+                case 'a':
+                        if(myDir != LEFT && myDir != RIGHT)
+                            myDir =LEFT;
+                        break;
 
-            case 's':
-                    if(myDir != UP && myDir != DOWN)
-                        myDir =DOWN;
-                    break;
+                case 's':
+                        if(myDir != UP && myDir != DOWN)
+                            myDir =DOWN;
+                        break;
 
-            case 'd':
-                    if(myDir != LEFT && myDir != RIGHT)
-                        myDir =RIGHT;
-                    break;
+                case 'd':
+                        if(myDir != LEFT && myDir != RIGHT)
+                            myDir =RIGHT;
+                        break;
 
-                default:
-                    break;
+                    default:
+                        break;
 
 
+            }
+        }
+        else{
+            myDir = STOP;
         }
 
-
 }
-
 void Player::movePlayer()
 {
     // PPA3 Finite State Machine logic
@@ -109,7 +114,6 @@ void Player::movePlayer()
         break;
 
         case STOP:
-
         default:
         break;
         
