@@ -47,7 +47,7 @@ void Initialize(void)
 
     GMC = new GameMechs();
     myPlayer = new Player(GMC);
-    GMC->generateFood(myPlayer->getPlayerPos());
+    GMC->generateFood(myPlayer->getPlayerPos()->getHeadElement());
 
 }
 
@@ -78,11 +78,12 @@ void DrawScreen(void)
 
 
 
-        objPos playerPos = myPlayer->getPlayerPos();
+        objPosArrayList* playerPos = myPlayer->getPlayerPos();
+        objPos head = playerPos->getHeadElement();
         objPos foodPos = GMC->getFoodPos();
         int bx = GMC->getBoardSizeX();
         int by = GMC->getBoardSizeY();
-        MacUILib_printf("Player[x,y] = [%d], [%d], %c\n", playerPos.pos->x, playerPos.pos->y, playerPos.symbol);
+        MacUILib_printf("Player[x,y] = [%d], [%d], %c\n",head.pos->x, head.pos->y, head.symbol);
 
 
         int y,x;
@@ -93,26 +94,44 @@ void DrawScreen(void)
         
         for(x=0; x<bx; x++)
         {
+
+
             if ((y==0 || x==0)||(y==by-1 || x==bx-1))
             {
                 MacUILib_printf("#");
             }
 
-            else if (x==(playerPos.pos->x) && (y == playerPos.pos->y))
-            {
-                MacUILib_printf("%c", playerPos.symbol);
-            }
 
             else if (x==(foodPos.pos->x) && (y == foodPos.pos->y))
             {
                 MacUILib_printf("%c", foodPos.symbol);
             }
-            
-            else{
-                MacUILib_printf(" ");
+
+            else
+            {
+                bool snakebody = false;
+                for (int s = 0; s < playerPos->getSize(); s++)
+                {
+                    if(x == playerPos->getElement(s).pos->x && y == playerPos->getElement(s).pos->y)
+                    {
+                        MacUILib_printf("%c", playerPos->getHeadElement().getSymbol());
+                        snakebody = true;
+                        break;
+                    }
+                }
+                if (snakebody == false)
+                {
+                    MacUILib_printf(" ");
+                }
             }
-        }MacUILib_printf("\n");
-    }
+
+        }
+            
+        
+         MacUILib_printf("\n");
+
+
+        }
 
 
 }
