@@ -105,15 +105,24 @@ void GameMechs::clearInput()
 }
 
 
-void GameMechs::generateFood(objPos blockOff){
+void GameMechs::generateFood(objPosArrayList* playerPosList){
     int rx, ry;
+    bool wrongGen;
     do{
         srand(time(0));
         rx = (rand() % (xLt-2)) + 1;
         ry = (rand() % (yLt-2)) + 1;
+        wrongGen = false;
+        for (int i = 0; i < playerPosList->getSize(); i++){
+            if (rx == playerPosList->getElement(i).pos->x && ry == playerPosList->getElement(i).pos->y){
+                wrongGen = true;
+                break;
+            }
+        }
     }
-    while(rx != blockOff.getObjPos().pos->x && ry != blockOff.getObjPos().pos->y);
-    food.setObjPos(rx, ry, '+');
+    while(wrongGen);
+    setRegenFalse();
+    food = objPos(rx, ry, '+');
 }
 
 
@@ -122,3 +131,14 @@ objPos GameMechs::getFoodPos() const{
 }
 
 // More methods should be added here
+
+
+bool GameMechs::getRegen(){
+    return regen;
+}
+void GameMechs::setRegenTrue(){
+    regen = true;
+}
+void GameMechs::setRegenFalse(){
+    regen = false;
+}

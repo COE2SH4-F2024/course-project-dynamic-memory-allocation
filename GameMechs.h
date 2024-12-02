@@ -23,6 +23,7 @@ class GameMechs
         objPos food;
         int xLt;
         int yLt;
+        bool regen = true;
 
     public:
         GameMechs();
@@ -48,8 +49,12 @@ class GameMechs
         
         // More methods should be added here
 
-        void generateFood(objPos blockOff);
+        void generateFood(objPosArrayList* playerPosList);
         objPos getFoodPos() const;
+        bool getRegen();
+        void setRegenTrue();
+        void setRegenFalse();
+
 };
 
 #endif

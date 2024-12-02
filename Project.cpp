@@ -47,7 +47,8 @@ void Initialize(void)
 
     GMC = new GameMechs();
     myPlayer = new Player(GMC);
-    GMC->generateFood(myPlayer->getPlayerPos()->getHeadElement());
+     objPosArrayList* playerPos = myPlayer->getPlayerPos();
+    GMC->generateFood(playerPos);
 
 }
 

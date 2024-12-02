@@ -10,7 +10,7 @@ Player::Player(GameMechs* thisGMRef)
 
     // more actions to be included
  
-    playerPosList = new objPosArrayList(3);
+    playerPosList = new objPosArrayList(0);
 
     int xpos = mainGameMechsRef->getBoardSizeX()/2;
     int ypos = mainGameMechsRef->getBoardSizeY()/2;
@@ -116,11 +116,20 @@ void Player::movePlayer()
 
     };
 
-    playerPosList->insertHead(head);
-    playerPosList->removeTail();
-    
+    if (head.pos->x == mainGameMechsRef->getFoodPos().pos->x && head.pos->y == mainGameMechsRef->getFoodPos().pos->y){
+        objPos tHead = objPos(mainGameMechsRef->getFoodPos().pos->x, mainGameMechsRef->getFoodPos().pos->y, '*');
+        playerPosList->insertHead(tHead);
+        mainGameMechsRef->setRegenTrue();
+        mainGameMechsRef->generateFood(playerPosList);
+
+    }
+    else{
+        playerPosList->insertHead(head);
+        playerPosList->removeTail();
+    }
 
 
 }
+
 
 // More methods to be added
