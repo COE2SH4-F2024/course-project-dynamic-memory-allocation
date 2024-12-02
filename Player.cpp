@@ -9,9 +9,11 @@ Player::Player(GameMechs* thisGMRef)
 
 
     // more actions to be included
- 
+    
+    //dynamically allocaate memory for the playerPositions List
     playerPosList = new objPosArrayList(0);
 
+    //initialize starting position variables
     int xpos = mainGameMechsRef->getBoardSizeX()/2;
     int ypos = mainGameMechsRef->getBoardSizeY()/2;
 
@@ -25,8 +27,9 @@ Player::Player(GameMechs* thisGMRef)
 
 Player::~Player()
 
-{
+{   
     delete[] playerPosList;
+    
     // delete any heap members here
 }
 
@@ -42,6 +45,7 @@ void Player::updatePlayerDir()
         bool loseFlag = mainGameMechsRef->getLoseFlagStatus();
         // PPA3 input processing logic
   
+        // as long as the player has not lost the game, collect input to control the snake, else only take escape key input. 
         if (loseFlag == false){
 
             switch (input)
@@ -119,14 +123,14 @@ void Player::movePlayer()
         
 
     };
-
+    // if the head collides with the food, we add another element to the head, increment the score, and regenerate the food 
     if (head.pos->x == mainGameMechsRef->getFoodPos().pos->x && head.pos->y == mainGameMechsRef->getFoodPos().pos->y){
         objPos tHead = objPos(mainGameMechsRef->getFoodPos().pos->x, mainGameMechsRef->getFoodPos().pos->y, '*');
         playerPosList->insertHead(tHead);
         mainGameMechsRef->generateFood(playerPosList);
         mainGameMechsRef->incrementScore();
 
-    }
+    }// add the head and remove the tail
     else{
         playerPosList->insertHead(head);
         playerPosList->removeTail();
@@ -138,7 +142,7 @@ void Player::movePlayer()
 
 // More methods to be added
 
-bool Player::checkSelfCollision(){
+bool Player::checkSelfCollision(){ // if the head is on the coordinates of any of the body, return that it crashed
     for (int i = 1; i < playerPosList->getSize(); i++){
         if (playerPosList->getHeadElement().pos->x == playerPosList->getElement(i).pos->x && playerPosList->getHeadElement().pos->y == playerPosList->getElement(i).pos->y){
             return true;

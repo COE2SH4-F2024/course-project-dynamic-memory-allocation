@@ -1,7 +1,7 @@
 #include "GameMechs.h"
 #include "MacUILib.h"
 
-GameMechs::GameMechs()
+GameMechs::GameMechs() // default constructor
 {
     input = 0;
     exitFlag = false;
@@ -14,7 +14,7 @@ GameMechs::GameMechs()
     yLt = 15;
 }
 
-GameMechs::GameMechs(int boardX, int boardY)
+GameMechs::GameMechs(int boardX, int boardY) // parametrized contructor
 {
     input = 0;
     exitFlag = false;
@@ -28,7 +28,7 @@ GameMechs::GameMechs(int boardX, int boardY)
 }
 
 // do you need a destructor?
-GameMechs::~GameMechs()
+GameMechs::~GameMechs() // destructor
 {
     
 }
@@ -46,7 +46,8 @@ bool GameMechs::getLoseFlagStatus() const
 
 char GameMechs::getInput()
 {
-    if(MacUILib_hasChar()){
+    //get input like in our PPAs
+    if(MacUILib_hasChar()){ 
         input = MacUILib_getChar();
     }
     
@@ -104,7 +105,7 @@ void GameMechs::clearInput()
     input = 0;
 }
 
-
+// used to generate the food
 void GameMechs::generateFood(objPosArrayList* playerPosList){
     int rx, ry;
     bool wrongGen;
@@ -112,7 +113,7 @@ void GameMechs::generateFood(objPosArrayList* playerPosList){
         srand(time(0));
         rx = (rand() % (xLt-2)) + 1;
         ry = (rand() % (yLt-2)) + 1;
-        wrongGen = false;
+        wrongGen = false; 
         for (int i = 0; i < playerPosList->getSize(); i++){
             if (rx == playerPosList->getElement(i).pos->x && ry == playerPosList->getElement(i).pos->y){
                 wrongGen = true;

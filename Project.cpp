@@ -34,7 +34,6 @@ int main(void)
     }
 
     CleanUp();
-
 }
 
 
@@ -44,9 +43,9 @@ void Initialize(void)
     MacUILib_clearScreen();
 
     GMC = new GameMechs();
-    myPlayer = new Player(GMC);
-     objPosArrayList* playerPos = myPlayer->getPlayerPos();
-    GMC->generateFood(playerPos);
+    myPlayer = new Player(GMC); // allocate memory for class 
+     objPosArrayList* playerPos = myPlayer->getPlayerPos(); // variable to get the snake 
+    GMC->generateFood(playerPos); 
 
 }
 
@@ -142,8 +141,11 @@ void DrawScreen(void)
             MacUILib_printf("press esc to exit!\n");
 
         }
-    MacUILib_printf("Welcome to the Dynamic Memory Allocation Snake Game made for the ECE depratment where everyone is a snake :)\n");
-    MacUILib_printf("to play, simply use the WASD keys to move the snake. Do not crash into yourself as that will make you lose :(");
+        else{
+                MacUILib_printf("Welcome to the Dynamic Memory Allocation Snake Game:)\n");
+    MacUILib_printf("To Play, simply use the WASD keys to move the snake. Do not crash into yourself as that will make you lose. ENJOY!!");
+        }
+
 
 }
 
