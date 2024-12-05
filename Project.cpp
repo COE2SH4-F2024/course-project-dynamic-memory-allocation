@@ -59,7 +59,7 @@ GMC->getInput();
 
 void RunLogic(void)
 {
-    if (GMC->getInput()== 27){
+    if (GMC->getInput()== 27){ //set escape key as exit
         GMC->setExitTrue();
     }
     myPlayer->movePlayer();
@@ -90,7 +90,6 @@ void DrawScreen(void)
 
         int y,x;
 
-    cout << GMC->getLoseFlagStatus()<< endl;
     for(y=0; y<by; y++)
     {
         
